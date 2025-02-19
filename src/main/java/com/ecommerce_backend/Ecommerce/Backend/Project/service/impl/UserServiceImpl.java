@@ -3,7 +3,6 @@ package com.ecommerce_backend.Ecommerce.Backend.Project.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce_backend.Ecommerce.Backend.Project.model.User;
@@ -25,24 +24,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User saveUser(User user) {
 		// TODO Auto-generated method stub
+		userRepository.save(user);
 		return null;
 	}
 
 	@Override
-	public Optional<User> getUserById(Long Id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public User getUserById(Long id) {
+	    return userRepository.findById(id)
+	        .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
 	}
 
 	@Override
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findAll();
 	}
 
 	@Override
 	public void deleteUser(Long id) {
 		// TODO Auto-generated method stub
+		userRepository.deleteById(id);
 		
 	}
 
