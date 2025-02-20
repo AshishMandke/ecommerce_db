@@ -23,7 +23,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Setter
+		@Setter
 	@Column(nullable = false, unique = true)
 	private String email;
 	
