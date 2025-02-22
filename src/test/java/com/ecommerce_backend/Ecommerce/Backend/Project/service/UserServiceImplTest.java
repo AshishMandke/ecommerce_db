@@ -21,6 +21,8 @@ import com.ecommerce_backend.Ecommerce.Backend.Project.model.User;
 import com.ecommerce_backend.Ecommerce.Backend.Project.repository.UserRepository;
 import com.ecommerce_backend.Ecommerce.Backend.Project.service.impl.UserServiceImpl;
 
+import lombok.Builder;
+
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
@@ -87,8 +89,8 @@ public class UserServiceImplTest {
 
 		List<User> users = List.of(
 
-				new User(1L, "tcs.com", "1234", "Ashish", "Admin"),
-				new User(2L, "capgemini.com", "1234", "Ashish", "Admin")
+				User.builder().id(1L).email("tcs.com").password("1234").name("Ashish").role("Admin").build(),
+				User.builder().id(1L).email("cap.com").password("4321").name("Ashu").role("Admin").build()
 
 		);
 
@@ -117,8 +119,10 @@ public class UserServiceImplTest {
 
 		Long id = 1L;
 
-		User existingUser = new User(1L, "tcs.com", "1234", "Ashish", "Admin");
-		User updatedUser = new User(1L, "cap.com", "4321", "Ashu", "Admin");
+		User existingUser =  User.builder().id(1L).email("tcs.com").password("1234").name("Ashish").role("Admin").build();
+		// User(1L, "tcs.com", "1234", "Ashish", "Admin");
+		User updatedUser = User.builder().id(1L).email("cap.com").password("4321").name("Ashu").role("Admin").build();
+		//1L, "cap.com", "4321", "Ashu", "Admin")
 
 		when(userRepository.findById(id)).thenReturn(Optional.of(existingUser));
 		
