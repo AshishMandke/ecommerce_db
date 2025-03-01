@@ -17,11 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.ecommerce_backend.Ecommerce.Backend.Project.dto.UserResponse;
 import com.ecommerce_backend.Ecommerce.Backend.Project.model.User;
 import com.ecommerce_backend.Ecommerce.Backend.Project.repository.UserRepository;
 import com.ecommerce_backend.Ecommerce.Backend.Project.service.impl.UserServiceImpl;
-
-import lombok.Builder;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
@@ -48,7 +47,7 @@ public class UserServiceImplTest {
 		
 		when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 		
-		User userFound = userServiceImpl.getUserById(1L);
+		UserResponse userFound = userServiceImpl.getUserById(1L);
 		
 		assertEquals("Ashish", userFound.getName());
 		assertEquals("tcs.com", userFound.getEmail());

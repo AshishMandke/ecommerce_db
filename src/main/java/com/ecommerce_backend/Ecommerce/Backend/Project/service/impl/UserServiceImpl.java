@@ -6,22 +6,21 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce_backend.Ecommerce.Backend.Project.dto.UserResponse;
 import com.ecommerce_backend.Ecommerce.Backend.Project.model.User;
 import com.ecommerce_backend.Ecommerce.Backend.Project.repository.UserRepository;
 import com.ecommerce_backend.Ecommerce.Backend.Project.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 	
 	
 	private final UserRepository userRepository;
 	
 	
-	public UserServiceImpl(UserRepository userRepository) {
-		super();
-		this.userRepository = userRepository;
-	}
-
 	@Override
 	public User saveUser(User user) {
 		// TODO Auto-generated method stub
@@ -30,9 +29,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(Long id) {
-	    return userRepository.findById(id)
+	public UserResponse getUserById(Long id) {
+		
+	    User user = userRepository.findById(id)
 	        .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+	     
+	     return UserResponse.builder()
+	    		 .id(user.getId())
+	    		 .email(user.getEmail())
+	    		 .name(user.getName())
+	    		 .role(user.getRole())
+	    		 .build();
+	     
+	}
+	
+	@Override
+	public Optional<User> getUserByEmail(String email) {
+	    return userRepository.findByEmail(email);
 	}
 
 	@Override
@@ -58,7 +71,6 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.save(existingUser);
 	}
-	
 	
 
 }
